@@ -9,6 +9,7 @@ import { Call, useStreamVideoClient } from "@stream-io/video-react-sdk";
 import { useToast } from "@/components/ui/use-toast";
 import { Textarea } from "@/components/ui/textarea";
 import ReactDatePicker from "react-datepicker";
+import { Input } from "@/components/ui/input";
 
 const MeetingTypeList = () => {
   const { toast } = useToast();
@@ -87,14 +88,14 @@ const MeetingTypeList = () => {
         icon="/icons/schedule.svg"
         description="Plan your meeting"
         title="Schedule Metting"
-        color="bg-purple-1"
+        color="bg-yellow-1"
         handleClick={() => setMeetingState("isScheduleMeeting")}
       />
       <HomeCard
         icon="/icons/recordings.svg"
         description="Check out your recordings"
         title="View Recordings"
-        color="bg-yellow-1"
+        color="bg-purple-1"
         handleClick={() => router.push("/recordings")}
       />
 
@@ -155,6 +156,21 @@ const MeetingTypeList = () => {
         buttonText="Start Meeting"
         handleClick={createMeeting}
       />
+
+      <MeetingModel
+        isOpen={meetingState === "isJoiningMeeting"}
+        onClose={() => setMeetingState(undefined)}
+        title="Type the link here"
+        className="text-center"
+        buttonText="Join Meeting"
+        handleClick={() => router.push(values.link)}
+      >
+        <Input
+          placeholder="Meeting Link"
+          className="border-none bg-dark-3 focus-visible:ring-0 focus-visible:ring-offset-0"
+          onChange={(e) => setValues({ ...values, link: e.target.value })}
+        />
+      </MeetingModel>
     </section>
   );
 };
